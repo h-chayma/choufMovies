@@ -1,0 +1,119 @@
+<div class="hero-banner-1 p-40">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xxl-8 mb-30 mb-xxl-0">
+                <div class="anime-card ">
+                    <div class="content">
+                        <img src="assets/media/logo/hero_logo.png" class="logo" alt="">
+                        <h2 class="h-40 bold color-white mb-16">Wednesday</h2>
+                        <ul class="tag unstyled mb-16">
+                            <li>18+</li>
+                            <li>HD</li>
+                            <li>2022</li>
+                            <li>Horror</li>
+                            <li>1hr 45m</li>
+                        </ul>
+                        <p class="color-white mb-32"><b class="color-medium-gray">Starting:</b> Jenna Ortega,
+                            Emma Myers, Percy Hynes White</p>
+                        <div class="btn-block">
+                            <a [routerLink]="['/movie', 119051]" class="cus-btn primary">
+                                <i class="far fa-play"></i>
+                                Play
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+
+    <section class="categories">
+        <div class="container-fluid">
+            <div class="heading mb-32">
+                <h2 class="h-40 bold">Genres</h2>
+                <a routerLink="genres" class="light-btn primary">View All <i class="far fa-chevron-right"></i></a>
+            </div>
+            <div class="row">
+                <div *ngFor="let category of categories | slice:0:4;let i = index" class="col-xxl-3 col-sm-6 mb-30">
+                    <a routerLink="movies" class="categorie-item">
+                        <img src="assets/media/categories/Img-{{i + 1}}.png" alt="">
+                        <div class="content">
+                            <h2 class="h-36 mb-1 color-white">{{ category.name}}</h2>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="trending">
+        <div class="container-fluid">
+            <div class="heading mb-32">
+                <h2 class="h-40 bold">Popular Movies</h2>
+                <a routerLink="movies" class="light-btn primary">View All <i class="far fa-chevron-right"></i></a>
+            </div>
+            <div class="row">
+                <div *ngFor="let movie of popularMovies | slice:0:6; let i = index"
+                    class="col-xxl-3 col-xl-4 col-sm-6 mb-30 mb-xl-0">
+                    <div class="card mb-20">
+                        <div class="img-block mb-20">
+                            <img [src]="'https://image.tmdb.org/t/p/w500' + movie.backdrop_path"
+                                alt="{{ movie.title }}">
+                            <a [routerLink]="['/movie', movie.id]" class="cus-btn light">
+                                Stream Now
+                                <i class="far fa-play"></i>
+                            </a>
+                        </div>
+                        <div class="content">
+                            <div class="list">{{ i + 1 }}</div>
+                            <div class="name">
+                                <h4 class="h-24 color-white bold">{{ movie.title }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xxl-3 col-xl-4 col-sm-6 d-xxl-block d-xl-none d-lg-block">
+                    <div class="card">
+                        <div class="img-block mb-30">
+                            <img src="assets/media/anime-card/img-6.png" alt="">
+                            <a href="movie-detail.html" class="cus-btn light">
+                                Stream Now
+                                <i class="far fa-play"></i>
+                            </a>
+                        </div>
+                        <div class="content">
+                            <div class="list">4</div>
+                            <div class="name">
+                                <h4 class="h-24 color-white bold">Darling In The Franxx</h4>
+                                <h6 class="h-20 color-medium-gray ">Fantasy</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<div class="modal fade" id="videoModal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="top_bar">
+                <h4 class="modal-title">Demon Slayer Season 4</h4>
+                <button type="button" class="close" id="closeVideoModalButton" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fas fa-times"></i> <b>Close</b></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <video controls title="Video">
+                    <source src="assets/media/video/movie-video.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="page-content">
+    <section class="trending p-40">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xxl-9">
+                    <div class="row mb-4">
+                        <div class="blog col-12">
+                            <div class="sec-title mb-30">
+                                <h2 *ngIf="movie" class="h-40 color-white bold">Results found for: {{ movie }}</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div *ngFor="let movie of searchResults" class="col-md-4 col-sm-6 mb-40">
+                            <div class="card st-2 m-0">
+                                <div class="img-block mb-20">
+                                    <img [src]="'https://image.tmdb.org/t/p/w500' + movie.backdrop_path"
+                                        alt="{{ movie.title }}">
+                                    <a [routerLink]="['/movie', movie.id]" class="cus-btn light">
+                                        Stream Now
+                                        <i class="far fa-play"></i>
+                                    </a>
+                                </div>
+                                <div class="content">
+                                    <h4 class="h-24 color-white bold">{{ movie.title }}</h4>
+                                    <ul class="tag unstyled">
+                                        <li>Action</li>
+                                        <li>{{ getYearFromReleaseDate(movie.release_date)}}</li>
+                                        <li>EP-24</li>
+                                        <li class="icon"><i class="fas fa-star"></i></li>
+                                        <li>{{ movie.vote_average }}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4" *ngIf="searchResults.length === 0 && movie">
+                            <div class="col-12 vh-100">
+                                <p class="text-center">No results found</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,15 @@
+<div id="preloader" class="loader">
+    <div class="loader__container">
+        <div class="loader__film">
+            <img class="loader__film-img" src="assets/media/preloader/film.png" alt="">
+            <img class="loader__film-img" src="assets/media/preloader/film.png" alt="">
+        </div>
+        <img class="loader__camera" src="assets/media/preloader/camera.png" alt="">
+    </div>
+</div>
+<a href="#main-wrapper" id="backto-top" class="back-to-top"><i class="fas fa-angle-up"></i></a>
+<div id="main-wrapper" class="main-wrapper overflow-hidden">
+    <app-header (movieSearched)="onMovieSearched($event)"></app-header>
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+</div>

@@ -1,0 +1,18 @@
+<div class="page-content">
+    <section class="categories p-40">
+        <div class="container-fluid">
+            <div class="row">
+                <ng-container *ngFor="let genre of genres; let i = index">
+                    <div class="col-xxl-3 col-sm-6 mb-30">
+                        <a [routerLink]="['/genre', genre.id]" class="categorie-item">
+                            <img src="assets/media/categories/Img-{{ (i % 8) + 1 }}.png" alt="">
+                            <div class="content">
+                                <h2 class="h-36 mb-1 color-white">{{ genre.name }}</h2>
+                            </div>
+                        </a>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </section>
+</div>

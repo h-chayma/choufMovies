@@ -1,0 +1,126 @@
+<div class="inner-banner p-40">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="videoplayer" *ngIf="videoKey; else noVideo">
+                    <iframe width="100%" height="500" [src]="'https://www.youtube.com/embed/' + videoKey | safeUrl"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <ng-template #noVideo>
+                    <p>No trailer available.</p>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="page-content">
+    <section class="movie-detail p-40">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xxl-8 col-xl-8 col-lg-9 mb-lg-0 mb-24">
+                    <div class="name-rating mb-24">
+                        <h2 class="h-30 bold color-white ">{{ movie.title }}</h2>
+                        <div class="rating">
+                            <span class="h-24 color-white">
+                                {{ movie.vote_average }}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"
+                                    fill="none">
+                                    <path
+                                        d="M16.0001 23.027L21.5334 26.3737C22.5468 26.987 23.7868 26.0803 23.5201 24.9337L22.0534 18.6403L26.9468 14.4003C27.8401 13.627 27.3601 12.1603 26.1868 12.067L19.7468 11.5203L17.2268 5.57367C16.7734 4.49367 15.2268 4.49367 14.7734 5.57367L12.2534 11.507L5.81343 12.0537C4.6401 12.147 4.1601 13.6137 5.05343 14.387L9.94676 18.627L8.4801 24.9203C8.21343 26.067 9.45343 26.9737 10.4668 26.3603L16.0001 23.027Z"
+                                        fill="#EEAA0F" />
+                                </svg>
+                            </span>
+                            <span class="h-24 color-white">({{ movie.vote_count }})</span>
+                        </div>
+                    </div>
+                    <ul class="tag unstyled mb-24">
+                        <li *ngIf="movie.adult">18+</li>
+                        <li>HD</li>
+                        <li> {{ getYearFromReleaseDate(movie.release_date) }}</li>
+                        <li>{{ movie.status }}</li>
+                        <li>{{ convertRuntime(movie.runtime) }}</li>
+                    </ul>
+                    <h5 class="h-24 color-white mb-16 bold">About the Story</h5>
+                    <p class="sec color-white mb-24">{{ movie.overview }}</p>
+                    <p class="sec color-white mb-16"><span class="color-medium-gray">Language: </span>
+                        <span *ngFor="let language of movie.spoken_languages;let last = last"> {{ language.name }}<span
+                                *ngIf="!last">, </span></span>
+                    </p>
+                    <p class="sec color-white mb-16"><span class="color-medium-gray">Production Companies:</span>
+                        <span *ngFor="let company of movie.production_companies;let last = last"> {{ company.name
+                            }}<span *ngIf="!last">,
+                            </span></span>
+                    </p>
+                    <p class="sec color-white"><span class="color-medium-gray">Production Countries:</span>
+                        <span *ngFor="let country of movie.production_countries;let last = last"> {{ country.name
+                            }}<span *ngIf="!last">,
+                            </span></span>
+                    </p>
+                </div>
+                <div class="col-xxl-3 col-xl-4 col-lg-3">
+                    <div class="about">
+                        <h3 class="h-30 bold color-white mb-24">About</h3>
+                        <p class="sec color-white mb-8"><span class="color-medium-gray">Type:</span>Movie</p>
+                        <p class="sec color-white mb-8">
+                            <span class="color-medium-gray">Director:</span>
+                            <span *ngFor="let director of getDirectors(); let last=last">
+                                {{ director.name }}<span *ngIf="!last">, </span>
+                            </span>
+                        </p>
+                        <p class="sec color-white mb-8"><span class="color-medium-gray">Date aired:</span> {{
+                            movie.release_date | date: 'mediumDate' }}</p>
+                        <p class="sec color-white mb-8"><span class="color-medium-gray">Status:</span> {{ movie.status
+                            }}</p>
+                        <p class="sec color-white mb-8"><span class="color-medium-gray">Country:</span>
+                            <span *ngFor="let country of movie.production_countries; let last=last">{{ country.name
+                                }}<span *ngIf="!last">, </span></span>
+                        </p>
+                        <p class="sec color-white mb-8"><span class="color-medium-gray">Premiered:</span> {{
+                            movie.release_date | date: 'shortDate' }}</p>
+                        <p class="sec color-white mb-24"><span class="color-medium-gray">Duration:</span> {{
+                            convertRuntime(movie.runtime) }}</p>
+                        <div class="categorie">
+                            <p class="sec color-medium-gray">Genre:</p>
+                            <ul class="categorie-list unstyled">
+                                <li *ngFor="let genre of movie.genres"><a href="#">{{ genre.name }}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="line"></div>
+            <section class="blog blog-detail p-40">
+                <div class="container-fluid">
+                    <div class="heading mb-32">
+                        <h2 class="h-40 bold">Cast</h2>
+                        <a *ngIf="getCast().length > 8" (click)="showMoreCast()" class="light-btn primary">
+                            {{ visibleCastCount === 8 ? 'View All' : 'View Less' }} <i class="far fa-chevron-right"></i>
+                        </a>
+                    </div>
+                    <div class="row">
+                        <div class="col-xxl-12 col-xl-12 offset-xxl-1 mb-xl-0 mb-24">
+                            <div class="row">
+                                <div *ngFor="let cast of getCast() | limitCast: visibleCastCount"
+                                    class="col-6 col-md-4 col-lg-3 mb-4">
+                                    <div class="author-detail text-center">
+                                        <div class="name-image">
+                                            <img *ngIf="cast.profile_path"
+                                                [src]="'https://image.tmdb.org/t/p/w500' + cast.profile_path"
+                                                class="img-fluid rounded-circle">
+                                            <p class="sec color-primary lh-120">{{ cast.name }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+</div>
